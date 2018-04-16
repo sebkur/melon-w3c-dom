@@ -1,0 +1,4 @@
+<test>
+	<item foo="bar" test="foo" />
+	<item test="bar" />
+</test>
