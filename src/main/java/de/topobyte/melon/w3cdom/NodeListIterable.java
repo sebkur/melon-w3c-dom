@@ -17,34 +17,25 @@
 
 package de.topobyte.melon.w3cdom;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.NamedNodeMap;
+import java.util.Iterator;
+
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class DomUtil
+public class NodeListIterable implements Iterable<Node>
 {
 
-	final static Logger logger = LoggerFactory.getLogger(DomUtil.class);
+	private NodeList list;
 
-	public static String getAttribute(Node node, String name)
+	public NodeListIterable(NodeList list)
 	{
-		return getValue(node.getAttributes(), name);
+		this.list = list;
 	}
 
-	public static String getValue(NamedNodeMap attrs, String name)
+	@Override
+	public Iterator<Node> iterator()
 	{
-		Node item = attrs.getNamedItem(name);
-		if (item == null) {
-			return null;
-		}
-		return item.getNodeValue();
-	}
-
-	public static Iterable<Node> iterable(NodeList list)
-	{
-		return new NodeListIterable(list);
+		return new NodeListIterator(list);
 	}
 
 }

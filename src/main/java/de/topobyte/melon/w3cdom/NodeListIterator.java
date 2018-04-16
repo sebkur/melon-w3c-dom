@@ -17,34 +17,38 @@
 
 package de.topobyte.melon.w3cdom;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.NamedNodeMap;
+import java.util.Iterator;
+
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class DomUtil
+public class NodeListIterator implements Iterator<Node>
 {
 
-	final static Logger logger = LoggerFactory.getLogger(DomUtil.class);
+	private NodeList list;
+	private int index = 0;
 
-	public static String getAttribute(Node node, String name)
+	public NodeListIterator(NodeList list)
 	{
-		return getValue(node.getAttributes(), name);
+		this.list = list;
 	}
 
-	public static String getValue(NamedNodeMap attrs, String name)
+	@Override
+	public boolean hasNext()
 	{
-		Node item = attrs.getNamedItem(name);
-		if (item == null) {
-			return null;
-		}
-		return item.getNodeValue();
+		return index < list.getLength();
 	}
 
-	public static Iterable<Node> iterable(NodeList list)
+	@Override
+	public Node next()
 	{
-		return new NodeListIterable(list);
+		return list.item(index++);
+	}
+
+	@Override
+	public void remove()
+	{
+		throw new UnsupportedOperationException("remove");
 	}
 
 }
