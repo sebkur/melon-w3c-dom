@@ -17,8 +17,12 @@
 
 package de.topobyte.melon.w3cdom;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -45,6 +49,20 @@ public class DomUtil
 	public static Iterable<Node> iterable(NodeList list)
 	{
 		return new NodeListIterable(list);
+	}
+
+	public static List<Node> getChildElementsByTagName(Node node, String name)
+	{
+		List<Node> results = new ArrayList<>();
+		for (Node child : iterable(node.getChildNodes())) {
+			if (!(child instanceof Element)) {
+				continue;
+			}
+			if (child.getNodeName().equals(name)) {
+				results.add(child);
+			}
+		}
+		return results;
 	}
 
 }

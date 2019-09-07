@@ -1,0 +1,12 @@
+<test>
+	<item name="foo" />
+	<node name="node1">
+		<item name="node1-foo" />
+		<item name="node1-bar" />
+	</node>
+	<item name="bar" />
+	<node name="node2">
+		<item name="node2-foo" />
+		<item name="node2-bar" />
+	</node>
+</test>
