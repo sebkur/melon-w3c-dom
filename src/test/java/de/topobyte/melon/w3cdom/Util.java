@@ -1,4 +1,4 @@
-// Copyright 2018 Sebastian Kuerten
+// Copyright 2019 Sebastian Kuerten
 //
 // This file is part of melon-w3c-dom.
 //
@@ -18,44 +18,26 @@
 package de.topobyte.melon.w3cdom;
 
 import java.io.IOException;
+import java.io.InputStream;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.junit.Assert;
-import org.junit.Test;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class TestIterable
+public class Util
 {
 
-	@Test
-	public void testIteration()
-			throws ParserConfigurationException, SAXException, IOException
+	public static Document document(String resource)
+			throws IOException, SAXException, ParserConfigurationException
 	{
-		Document doc = Util.document("test.xml");
-
-		NodeList items = doc.getElementsByTagName("item");
-
-		int i = 0;
-
-		NodeListIterable iterable = new NodeListIterable(items);
-		for (Node node : iterable) {
-			int p = i++;
-			if (p == 0) {
-				Assert.assertEquals("foo=\"bar\"", "bar",
-						DomUtil.getAttribute(node, "foo"));
-				Assert.assertEquals("test=\"foo\"", "foo",
-						DomUtil.getAttribute(node, "test"));
-			} else if (p == 1) {
-				Assert.assertNull("foo is null",
-						DomUtil.getAttribute(node, "foo"));
-				Assert.assertEquals("test=\"bar\"", "bar",
-						DomUtil.getAttribute(node, "test"));
-			}
-		}
+		InputStream input = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream(resource);
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		return builder.parse(input);
 	}
 
 }

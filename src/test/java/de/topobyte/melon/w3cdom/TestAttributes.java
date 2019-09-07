@@ -18,10 +18,7 @@
 package de.topobyte.melon.w3cdom;
 
 import java.io.IOException;
-import java.io.InputStream;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Assert;
@@ -39,11 +36,7 @@ public class TestAttributes
 	public void testGetAttribute()
 			throws ParserConfigurationException, SAXException, IOException
 	{
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		InputStream is = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream("test.xml");
-		Document doc = builder.parse(is);
+		Document doc = Util.document("test.xml");
 
 		NodeList items = doc.getElementsByTagName("item");
 
@@ -63,11 +56,7 @@ public class TestAttributes
 	public void testGetValue()
 			throws ParserConfigurationException, SAXException, IOException
 	{
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		InputStream is = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream("test.xml");
-		Document doc = builder.parse(is);
+		Document doc = Util.document("test.xml");
 
 		NodeList items = doc.getElementsByTagName("item");
 
